@@ -23,7 +23,7 @@ const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {},
-  extraReducers(builder) {
+  extraReducers: (builder) => {
     builder.addCase(getProduts.fulfilled, (state, action) => {
       productEntity.setAll(state, action.payload)
     })
