@@ -13,6 +13,17 @@ export const getProduts = createAsyncThunk("products/getProduct", async () => {
   return response.data
 })
 
+export const saveProduts = createAsyncThunk(
+  "products/saveProduct",
+  async ({ title, price }: { title: string; price: string }) => {
+    const response = await axios.post("http://localhost:5000/products", {
+      title,
+      price,
+    })
+    return response.data
+  },
+)
+
 const productEntity = createEntityAdapter({
   selectId: (product: ProductState) => product.id,
 })
@@ -26,7 +37,10 @@ const productSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getProduts.fulfilled, (state, action) => {
       productEntity.setAll(state, action.payload)
-    })
+    }),
+      builder.addCase(saveProduts.fulfilled, (state, action) => {
+        productEntity.addOne(state, action.payload)
+      })
   },
 })
 

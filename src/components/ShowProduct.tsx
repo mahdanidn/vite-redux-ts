@@ -33,7 +33,12 @@ const ShowProduct = () => {
               <td>{product.title}</td>
               <td>{product.price}</td>
               <td>
-                <button className="button is-info is-small">Edit</button>
+                <Link
+                  to={`edit/${product.id}`}
+                  className="button is-info is-small"
+                >
+                  Edit
+                </Link>
                 <button className="button is-danger is-small">Delete</button>
               </td>
             </tr>

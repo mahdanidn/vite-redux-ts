@@ -1,14 +1,22 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { useDispatch } from "react-redux"
+import { saveProduts } from "../features/productSlice"
+import { AppDispatch } from "../app/store"
 
 const AddProduct = () => {
-  const [title, setTitle] = useState("")
-  const [price, setPrice] = useState("")
-  const dispatch = useDispatch()
+  const [title, setTitle] = useState<string>("")
+  const [price, setPrice] = useState<string>("")
+  const dispatch: AppDispatch = useDispatch()
+
+  const createProduct = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    dispatch(saveProduts({ title, price }))
+  }
 
   return (
     <div>
-      <form className="box mt-5">
+      <form onSubmit={createProduct} className="box mt-5">
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
