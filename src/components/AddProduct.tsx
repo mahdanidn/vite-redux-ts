@@ -1,17 +1,20 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 import { useDispatch } from "react-redux"
-import { saveProduts } from "../features/productSlice"
+import { saveProduct } from "../features/productSlice"
 import { AppDispatch } from "../app/store"
+import { NavigateFunction, useNavigate } from "react-router-dom"
 
 const AddProduct = () => {
   const [title, setTitle] = useState<string>("")
   const [price, setPrice] = useState<string>("")
   const dispatch: AppDispatch = useDispatch()
+  const navigate: NavigateFunction = useNavigate()
 
-  const createProduct = (e: FormEvent<HTMLFormElement>) => {
+  const createProduct = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    dispatch(saveProduts({ title, price }))
+    await dispatch(saveProduct({ title, price }))
+    navigate("/")
   }
 
   return (

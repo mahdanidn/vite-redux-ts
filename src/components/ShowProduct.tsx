@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
-import { getProduts, productSelectors } from "../features/productSlice"
+import {
+  getProducts,
+  productSelectors,
+  deleteProduct,
+} from "../features/productSlice"
 import { AppDispatch } from "../app/store"
 import { Link } from "react-router-dom"
 
@@ -9,7 +13,7 @@ const ShowProduct = () => {
   const products = useSelector(productSelectors.selectAll)
 
   useEffect(() => {
-    dispatch(getProduts())
+    dispatch(getProducts())
   }, [dispatch])
 
   return (
@@ -39,7 +43,12 @@ const ShowProduct = () => {
                 >
                   Edit
                 </Link>
-                <button className="button is-danger is-small">Delete</button>
+                <button
+                  onClick={() => dispatch(deleteProduct(product.id.toString()))}
+                  className="button is-danger is-small"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
